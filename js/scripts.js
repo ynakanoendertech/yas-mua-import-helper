@@ -25,7 +25,16 @@
 
                 reader.onload = (function(theFile) {
                     return function(e) {
-                        $('#list').html(e.target.result);
+
+                        var output = "";
+                        var lines = e.target.result;
+                        lines = lines.split("\n");
+
+                        for (var i = 0; i < lines.length; i++) {
+                            output += '<li>' + lines[i] + '</li>';
+                        }
+
+                        $('#list').html(output);
                     };
                 })(f);
 
