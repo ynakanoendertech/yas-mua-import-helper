@@ -1,0 +1,14 @@
+{
+  "name": "mua-category-analysis",
+  "version": "1.0.0",
+  "description": "finding category structure for MUAshop",
+  "main": "index.html",
+  "author": "EnderTech",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "jquery": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  }
+}

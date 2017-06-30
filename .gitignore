@@ -1,0 +1,6 @@
+# npm modules
+node_modules
+
+# local dev and OS files
+*.DS_Store
+.idea
