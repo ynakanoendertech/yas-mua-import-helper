@@ -28,6 +28,13 @@
                 }
 
                 if (data.length == 0) {
+
+                    if (path[ key ].cnt === undefined) {
+                        path[ key ].cnt = 1;
+                    } else {
+                        path[ key ].cnt = path[ key ].cnt + 1;
+                    }
+
                     return 0;
                 }
 
