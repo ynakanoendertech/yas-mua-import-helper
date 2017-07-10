@@ -19,20 +19,13 @@
             // Loop through FileList
             for (var i = 0, f; f = files[i]; i++) {
 
-                var reader = new FileReader();
-
-                reader.onload = (function(theFile) {
-                    return function(e) {
-
-                        // lines
-                        var lines = e.target.result;
-                        lines = lines.split("\n");
-
-                    };
-                })(f);
-
-                // Read as text
-                reader.readAsBinaryString(f);
+                Papa.parse(f, {
+                    header: true,
+                    dynamicTyping: true,
+                    complete: function(results) {
+                        console.log(results.data);
+                    }
+                });
             }
         }
 
