@@ -10,6 +10,7 @@
             return 0;
         }
 
+        window.parsed = {};
 
         function handleFileSelect(evt) {
 
@@ -23,7 +24,8 @@
                     header: true,
                     dynamicTyping: true,
                     complete: function(results) {
-                        console.log(results.data);
+                        window.parsed = results.data;
+                        console.dir(window.parsed);
                     }
                 });
             }
