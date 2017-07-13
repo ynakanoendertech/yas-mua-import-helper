@@ -2,6 +2,11 @@
 
     'use strict';
 
+    // helper function, check a value exists in an array
+    function include(arr, obj) {
+        return (arr.indexOf(obj) != -1);
+    }
+
     $(document).ready(function() {
 
         // Check for the various File API support.
@@ -11,6 +16,31 @@
         }
 
         window.parsed = {};
+        window.values = {};
+
+        function combine() {
+
+            for (var i = 0; i < parsed.length; i++) {
+                for (var key in parsed[i]) {
+                    if (parsed[i].hasOwnProperty(key) && parsed[i][key]) {
+
+                        var newVal = parsed[i][key];
+
+                        if (Array.isArray(window.values[key])) {
+                            if (! include(window.values[key], newVal) ) {
+                                window.values[key].push( newVal );
+                                window.values[key].sort();
+                            }
+                        } else {
+                            window.values[key] = [ newVal ];
+                        }
+                    }
+                }
+            }
+
+            console.dir(window.values);
+            $('#list').html( JSON.stringify( window.values, null, 4 ) );
+        }
 
         function handleFileSelect(evt) {
 
@@ -25,7 +55,7 @@
                     dynamicTyping: true,
                     complete: function(results) {
                         window.parsed = results.data;
-                        console.dir(window.parsed);
+                        combine();
                     }
                 });
             }
