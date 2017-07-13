@@ -24,15 +24,21 @@
                 for (var key in parsed[i]) {
                     if (parsed[i].hasOwnProperty(key) && parsed[i][key]) {
 
-                        var newVal = parsed[i][key];
+                        var newValues = parsed[i][key];
+                        newValues = newValues.toString();
+                        var newValArray = newValues.split('|');
 
-                        if (Array.isArray(window.values[key])) {
-                            if (! include(window.values[key], newVal) ) {
-                                window.values[key].push( newVal );
-                                window.values[key].sort();
+                        for (var index in newValArray) {
+
+                            if (newValArray.hasOwnProperty(index) && Array.isArray(window.values[key])) {
+                                if (! include(window.values[key], newValArray[index]) ) {
+                                    window.values[key].push( newValArray[index] );
+                                    window.values[key].sort();
+                                }
+                            } else {
+                                window.values[key] = [ newValArray[index] ];
                             }
-                        } else {
-                            window.values[key] = [ newVal ];
+
                         }
                     }
                 }
