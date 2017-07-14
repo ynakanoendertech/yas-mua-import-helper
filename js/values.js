@@ -15,28 +15,29 @@
             return 0;
         }
 
-        window.parsed = {};
-        window.values = {};
+        window.myParsed = {};
+        window.myValues = {};
+        window.myKeys = [];
 
         function combine() {
 
-            for (var i = 0; i < parsed.length; i++) {
-                for (var key in parsed[i]) {
-                    if (parsed[i].hasOwnProperty(key) && parsed[i][key]) {
+            for (var i = 0; i < myParsed.length; i++) {
+                for (var key in myParsed[i]) {
+                    if (myParsed[i].hasOwnProperty(key) && myParsed[i][key]) {
 
-                        var newValues = parsed[i][key];
+                        var newValues = myParsed[i][key];
                         newValues = newValues.toString();
                         var newValArray = newValues.split('|');
 
                         for (var index in newValArray) {
 
-                            if (newValArray.hasOwnProperty(index) && Array.isArray(window.values[key])) {
-                                if (! include(window.values[key], newValArray[index]) ) {
-                                    window.values[key].push( newValArray[index] );
-                                    window.values[key].sort();
+                            if (newValArray.hasOwnProperty(index) && Array.isArray(myValues[key])) {
+                                if (! include(myValues[key], newValArray[index]) ) {
+                                    myValues[key].push( newValArray[index] );
+                                    myValues[key].sort();
                                 }
                             } else {
-                                window.values[key] = [ newValArray[index] ];
+                                myValues[key] = [ newValArray[index] ];
                             }
 
                         }
@@ -44,8 +45,20 @@
                 }
             }
 
-            console.dir(window.values);
-            $('#list').html( JSON.stringify( window.values, null, 4 ) );
+            for (var k in myValues) {
+                if (myValues.hasOwnProperty(k)) {
+                    myKeys.push(k);
+                }
+            }
+            myKeys.sort();
+            for (var j = 0; j < myKeys.length; j++) {
+                console.log( myKeys[j] );
+                console.dir( myValues[ myKeys[j] ]);
+            }
+
+            console.log('------------------');
+            console.dir(myValues);
+            $('#list').html( JSON.stringify( myValues, null, 4 ) );
         }
 
         function handleFileSelect(evt) {
@@ -60,7 +73,7 @@
                     header: true,
                     dynamicTyping: true,
                     complete: function(results) {
-                        window.parsed = results.data;
+                        window.myParsed = results.data;
                         combine();
                     }
                 });
