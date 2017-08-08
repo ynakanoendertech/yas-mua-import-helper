@@ -2,9 +2,6 @@
 
     'use strict';
 
-    // input data file name
-    var fileName = "data/category-column-01.txt";
-
     $(document).ready(function() {
 
         // Check for the various File API support.
